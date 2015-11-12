@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Learn git and github</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/leo.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+
+		<div class="slides">
+<!-- page1 -->
+		<section data-markdown>
+   			 <script type="text/template">
+		     #*Learn git and*
+		     #*github*
+		     ###*Git* 菜鸟饭团
+
+						<p>
+              <small>Created by <a href="http://code.leozhang2018.me">Leozhang2018</a> /
+              <a href="http://twitter.com/leozhang2018">@leozhang2018</a>
+             </small>
+             </p>
+
+             <aside class="notes">
+             问好,之前有看到各位在通过某些途径浏览 Git 的相关知识。相信在座各位至少已经看过了基本的操作，所以今天我就不会填鸭式赘述基本的操作命令（初始化，到add以及commit 
+             balabala...）,浪费大伙时间的同时，效率也非常之低下。
+             <br>我相信凭借大家的能力,通过互联网上的众多资源,也应该很快能掌握并适应基本的操作。所以接下来的三次分享里，我会着重分享一些我自己使用 Git 
+             的相关经验技巧和 Git 中难以理解的知识点，以及在实际开发工作流程中使用 Git 可能会遇见的坑，如何去解决和驾驭它们。
+			<br>OK,here we go.
+			</aside>
+			</script>
+		</section>
+
+<!-- page2 -->
+		<section data-markdown>
+   			 <script type="text/template">
+		     <img src="attach/leozhang2018.png" style="width:100px; height:100px;
+		     border-radius:50%;"/>
+		     ####leozhang2018
+		     ###*Front-End Developer*
+		     <!-- .element: class="fragment" -->
+		     <small>
+		     <a href="http://code.leozhang2018.me">Blog</a> /
+		     <a href="http://github.com/leozhang2018">Github</a> /
+		     <a href="http://www.zhihu.com/people/zhang-leo-2018">知乎</a> /
+		     <a href="http://www.v2ex.com/member/leozhang">V2ex</a>
+			</small>
+			</script>
+		</section>
+
+		<!-- Package controls -->
+							<section data-markdown>
+									<script type="text/template">
+							## *Version control*
+
+							版本控制
+							<aside class="notes">
+							例子:网页设计师或者经常从事制图的同学,可能会需要保存某一幅图片或页面布局文件的所有修订版本(渴望工具之一)
+							<br>CVS 可将某个文件回溯到之前的状态，将整个项目都回退到过去某个时间点的状态。比较文件的变化细节，查出修改者以及相关说明。 
+
+							</aside>
+
+
+							</script>
+							</section>
+
+
+							<section data-markdown>
+								<script type="text/template">
+									###For example:
+
+									<br>
+
+									版本 |  用户  | 说明 |  日期
+									-----|------- | ------|-------|-------
+									V1.0.0: | *Tom Hanks*  | <small>初始化重构代码库</small> | May 10
+									V1.0.1: | *James Bond*  | <small>增加支付模块</small> | Jun 13
+									V1.0.2: | *Neo*  | <small>修复交互模块漏动</small> | Jul 15
+									V1.0.2: | *隔壁老王*  | <small>垂死病中惊坐起,哥还有Bug没De完</small> | Jul 18
+
+									<br>
+
+							</script>
+							</section>
+
+
+
+							<section data-markdown>
+									<script type="text/template">
+							### 什么是版本控制
+
+							- 记录文件变化
+							<!--.element: class="fragment"-->
+							- 查阅版本修订
+							<!--.element: class="fragment"-->
+							- A system
+							<!--.element: class="fragment"-->
+
+							<aside class="notes">
+							首先,其次,最后。
+							</aside>
+							</script>
+
+							</section>
+
+			<section data-markdown>
+							<script type="text/template">
+							<img src="attach/lvs.png" style="width:400px;">
+
+							###本地版本控制系统
+							*Local Version Control System*
+							<aside class="notes">
+							采用某种简单的数据库来记录文件的历次更新差异
+							</aside>
+							</script>
+			</section>
+
+
+			<section data-markdown>
+							<script type="text/template">
+							<img src="attach/cvs.png" style="width:400px;">
+
+							###集中化版本控制系统
+							*Centralized Version Control System*
+
+							<aside class="notes">
+							让在不同系统上的开发者协同工作,比如(SVN),
+							单一的集中管理的服务器，保存所有文件的修订版本，而协同工作的人们都通过客户端连到这台服务器，取出最新的文件或者提交更新。
+							<br>缺点:中央服务器的单点故障(宕机,停电)
+							无法提交更新，协同工作。中央服务器的磁盘发生故障，备份(无,不及时)导致丢失数据 
+							</aside>
+							</script>
+			</section>
+
+
+			<section data-markdown>
+							<script type="text/template">
+							<img src="attach/dvs.png" style="width:350px;">
+
+							###分布式版本控制系统
+							*Distributed Version Control System*
+
+							<aside class="notes">
+							完整镜像版本库中代码
+							<br>协同工作服务器宕机可以方便恢复 
+							<br>同一个项目与不同工作小组的人协作,设定不同的协作流程 
+							</aside>
+							</script>
+			</section>
+
+<!-- 前世今生 -->
+
+
+			<section data-markdown>
+   			 <script type="text/template">
+			## History of Git
+			<img src="attach/lightgit.png" style="width:100px; border-radius:50%"/>
+
+			前世今生
+				</script>
+		</section>
+
+		<section data-markdown data-background="attach/kernel.png"
+		style="background:rgba(0,0,0,0.8);"
+		>
+				<script type="text/template">
+					##A part of
+					##*Linux kernel* branch
+					<aside class="notes">
+					Linux kernel 分支的部分截图,实际中要多得多。
+					<br>那么 Linux 内核团队是如何管理这么庞大而复杂的分支的呢? 
+					</aside>
+				</script>
+	</section>
+
+	<section data-markdown>
+				<script type="text/template">
+				<img src="attach/bitkeeper.png" style="width:150px;height:150px; border-radius:50%">
+
+				<small>The origin of distributed version control </small>
+
+				Linux 内核开发团队使用 *Bitkeeper*
+
+				*2002~2005*
+
+				<aside class="notes">
+				早期 Linux 团队使用 BitKeeper 维护相关代码,分布式版本控制系统的始祖（收费）。出于 Linux 是公共开源的项目考虑，开发 BitKeeper
+				的公司也就没有收费，作为工具提供给 Linux 社区使用。
+				<br>但是好景不长，Linux 团队仅仅使用了 BitKeeper 三年时间。   
+				</aside>
+		        </script>
+	</section>
+
+					<section data-markdown>
+   			 		<script type="text/template">
+					<img src="attach/Andrew.png" style="width:200px;height:200px; border-radius:50%">
+
+					###Andrew Tridgell
+
+					*Samba* 软件作者
+
+					*Rsync* 算法发明者
+
+					<aside class="notes">
+					Andrew Tridgell，昵称垂居（Tridge），澳洲籍的计算机程序设计师，澳洲国立大学计算机科学博士。以创造 Samba 档案服务器以及 rsync (siNGk)算法著称。
+					<br>Samba:让 UNIX 系统与 Windows 系统 SMB/CIFS 网络协议做链接的一种自由软件,在 Windows 与 UNIX 系列 OS 之间搭起一座桥梁，让两者的资源共享。</br
+					>
+					<br>rsync: Unix 下同步更新两处计算机的文件与目录并适当利用差分编码以减少数据传输的软件 
+					BitMover 公司宣称 Tridgell 尝试通过逆向工程的方法破解 BitKeeper 的内部协议，决定收回 BitKeeper 的使用权。
+					</aside>
+
+					</script>
+
+
+					</section>
+
+		<section data-markdown>
+					<script type="text/template">
+					<img src="attach/Linus.png" style="width:350px;height:200px; ">
+
+					<blockquote><small>" I'm an egotistical bastard, and I name all my projects after myself. First 'Linux', now 'Git' "</small></blockquote>
+					<blockquote><small>“我是个自负的混蛋,所有的项目都是围绕我自己命名的,之前是 'Linux' 现在则是 'Git' ”</small></blockquote>
+					*-- Linus Benedict Torvalds*
+
+					<aside class="notes">
+					Linus 本可向 BitMover 公司摊牌,承认自己的错误(背手下的锅),并且不再犯错，但是谈崩。					
+					<br>决定自行开发版本控制系统，Git 诞生。基于（C，Perl，Unix shell）   
+					</aside>
+					</script>
+		</section>
+
+
+
+<!-- page5 -->
+			<section data-markdown>
+					<script type="text/template">
+			### *Why git ?*
+			- 本地化的版本管理 (*完全分布式*)
+			<!--.element: class="fragment"-->
+
+			- 不污染子目录的 *track* 方式 (SVN每个子目录都要扔.svn)
+			<!--.element: class="fragment"-->
+
+			- 强大的分支管理功能 (*允许上千个并行开发的分支*)
+			<!--.element: class="fragment"-->
+
+			- 轻量简洁,唯 *快* 不破 (*简单的设计*)
+			<!--.element: class="fragment"-->
+
+			</script>
+
+				<aside class="notes">
+				早期SVN每个子目录都要扔.svn，现在版本已经改善。  
+				</aside>
+
+			</section>
+
+<!-- github -->
+
+			<section data-markdown>
+				<script type="text/template">
+				<img src="attach/filmtocat.png" style="width:300px;height:300px">
+
+				##*Github* 新的篇章				
+
+				</script>
+			</section>
+
+			<section data-markdown>
+			<script type="text/template">
+			### *What is github?*
+			- 由GitHub公司（曾称 Logical Awesome）的开发者使用 *Ruby on Rails* 所开发
+			<!--.element: class="fragment"-->
+
+			- 用来存放使用 Git 版本控制的软件代码和内容项目
+			<!--.element: class="fragment"-->
+
+			- 提供代码社交化功能的代码托管网站
+			<!--.element: class="fragment"-->
+
+			- 全世界最大的 *同性交友* 网站
+			<!--.element: class="fragment"-->
+
+			<aside class="notes">
+			GitHub 同时提供付费账户和免费账户。都可以创建公开的代码仓库，付费账户也可以创建私有的代码仓库。GitHub 是最流行的 Git 访问站点。
+			<br>同时允许个人和组织创建和访问代码库以外,也提供了一些方便社会化软件开发的功能，包括允许用户跟踪其他用户、组织、软件库的动态，对软件代码的改动和 bug 
+			提出评论等。 
+			提供了图表功能，用于显示开发者们怎样在代码库上工作以及软件的开发活跃程度。
+			<br>Next,why 同性交友 
+			</aside>
+
+			</script>
+			</section>
+
+
+				<section data-markdown>
+				<script type="text/template">
+				<img src="attach/gitrebase.png">
+
+				###Git rebase
+				
+
+				</script>
+				</section>
+
+				<section data-markdown>
+				<script type="text/template">
+				<img src="attach/githubinvent.png">
+
+				*2008-02* Github Inc 的服务正式上线
+				
+				<aside class="notes">
+				2007 年 10 月 1 日开始开发 ,吉祥物-章鱼猫(Octocat=Octopus（章鱼）+ Cat（猫）, Simon Oxley 设计)
+				</aside>
+				</script>
+				</section>
+<!-- 代码托管 -->
+				<section data-markdown>
+				<script type="text/template">
+				### 提供代码托管服务的服务商
+				- Bitbucket
+				<!--.element: class="fragment"-->
+
+				- Google Code  (*2016-1-25*)
+				<!--.element: class="fragment"-->
+
+				- Gitcafe
+				<!--.element: class="fragment"-->
+
+				- Coding.net
+				<!--.element: class="fragment"-->
+
+				- Git@OSC
+				<!--.element: class="fragment"-->
+
+				- *Etc ...*
+				<!--.element: class="fragment"-->
+
+				<aside class="notes">
+				2015年3月12日，Google 宣布停止新项目的创建，8月24日变为只读状态，2016年1月25日 Google Code 将寿终正寝。 
+				</aside>
+				</script>
+				</section>
+
+				<section data-markdown>
+				<script type="text/template">
+				## *Break time*
+				*5 mins*
+				</script>
+				</section>
+			<section>
+			<video width="1280" height="720" controls data-autoplay src="http://7u2eut.com1.z0.glb.clouddn.com/blogvideoWelcome%20to%20Project%20Jacquard.mp4"></video>
+
+			<aside class="notes">
+			Advanced Technology and Project
+			</aside>
+			</section>
+
+			<section data-markdown>
+			<script type="text/template">
+			## 第一日 The Matrix
+			
+			###*Installation and configuration*
+
+			从安装和配置说起
+
+			</script>
+			</section>
+
+					<section data-markdown>
+                    <script type="text/template">
+                        以 Debian 系的 Ubuntu 为例
+                        ```
+                        $ Sudo apt-get update
+
+                        $ Sudo apt-get install git
+                        ```
+                        (注:非源码安装方式)
+
+                        <!-- .element: class="fragment" -->
+
+                        <aside class="notes">
+						源码安装好处:安装最新的版本 缺点:需要编译不适合新手 
+						<br>强烈推荐在 Linux 以及类 Unix 平台使用 Git (在 Unix 风格的 shell 中，可以使用本书中提及的复杂多行的命令) 
+						<br>Windows:可以使用安装包 OS X:图形化的包管理工具 Macports 或者 homebrew 
+						</aside>
+                    </script>
+                </section>
+
+						<section data-markdown>
+                    	<script type="text/template">
+                    	关键配置文件:
+
+                        *~/.gitconfig*
+                        <!-- .element: class="fragment" -->
+
+                        *.git/config*
+						<!-- .element: class="fragment" -->
+
+                        */etc/gitconfig*
+                        <!-- .element: class="fragment" -->
+
+                        <aside class="notes">
+                        /etc/gitconfig 文件：系统中对所有用户都普遍适用的配置。若使用 git config 时用 --system 选项，读写的就是这个文件。
+                        <br>~/.gitconfig 文件：用户目录下的配置文件只适用于该用户。若使用 git config 时用 --global 选项，读写的就是这个文件。 
+                        <br>当前项目的 Git 目录中的配置文件（也就是工作目录中的 .git/config 
+                        文件）：这里的配置仅仅针对当前项目有效。每一个级别的配置都会覆盖上层的相同配置，所以 .git/config 里的配置会覆盖 /etc/gitconfig 中的同名变量。
+                        </aside>
+                    	</script>
+                		</section>
+
+				<section data-markdown>
+                    <script type="text/template">
+                        用户信息
+                        ```
+                        $ git config --global user.name "Leozhang2018"
+
+                        $ git config --global user.email leozhang2018@gmail.com
+                        ```
+                        
+                        (--global 参数读写 *~/.gitconfig* 配置文件)
+
+                        <!-- .element: class="fragment" -->
+
+                        <aside class="notes">
+                        说明是谁提交了更新，更新内容一起被永久纳入历史记录
+                        </aside>
+                    </script>
+                </section>
+
+            <section data-markdown>
+			<script type="text/template">
+			### 其他配置方向
+			- 指定文本编辑器 (*Emacs* or *Vim*)
+			<!--.element: class="fragment"-->
+
+			- 差异分析工具
+			<!--.element: class="fragment"-->
+
+			- 外部的合并与比较工具
+			<!--.element: class="fragment"-->
+
+			- 格式化与空白
+			<!--.element: class="fragment"-->
+
+			</script>
+			</section>
+
+<!-- Demo -->
+            <section data-markdown>
+			<script type="text/template">
+			## *Demo time*
+
+			</script>
+			</section>
+
+
+<!-- Q&A -->
+			<section data-markdown>
+			<script type="text/template">
+			  # *Q&A*
+			  ###Any Questions?
+
+			</script>
+			</section>
+<!-- Open share -->
+
+			<section data-markdown data-transition="convex">
+			<script type="text/template">
+			## One more thing
+
+			###*Free share*
+			</script>
+			</section>
+
+<!-- you-get -->
+			<section data-markdown>
+			<script type="text/template">
+			###*you-get*
+			<img src="attach/youget.png" style="width:600px;">
+
+			<small>一个有趣而强大的命令行视频下载工具</small>
+
+			</script>
+			</section>
+
+				<section data-markdown>
+				<script type="text/template">
+				### *Supported Sites*
+				- Youtube
+				- Instagram
+				- Vimeo
+				- Youku
+				- Tudou
+				- Acfun & Bilibili
+				- 虾米 & 网易云音乐
+				- *Etc ...*
+
+				</script>
+				</section>
+
+
+			<section>
+			<video width="1280" height="720" controls data-autoplay src="http://7u2eut.com1.z0.glb.clouddn.com/TerminatorGenisysMovieOfficialTrailer.mp4"></video>
+			</section>
+
+<!-- summary -->
+            <section data-markdown>
+			<script type="text/template">
+			## *summary*
+			- History of Git
+			<!--.element: class="fragment"-->
+
+			- Installation and configuration
+			<!--.element: class="fragment"-->
+
+			- Github tutorial
+			<!--.element: class="fragment"-->
+
+			</script>
+			</section>
+
+			<section style="text-align: left;">
+			<h2>Reference</h2>
+			<p>
+			- <a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000">廖雪峰 Git 教程</a> <br>
+
+			- <a href="https://training.github.com/classes/">Github Training Class</a> <br>
+
+			- <a href="https://git-scm.com/book/zh/v1">Pro Git</a>
+			</p>
+
+			<aside class="notes">
+			参考资料,廖的教程不错,适合初学者以及刚入门速成的人,对于女生来说很友好。
+			<br>个人则强烈推荐 Pro Git (V1 老版本中文无障碍,V2 部分翻译中)	
+			</aside>
+			</section>
+
+			<section data-markdown>
+			<script type="text/template">
+			## *What is next ?*
+			- 分支管理的注意事项
+			<!--.element: class="fragment"-->
+
+			- 实际工作中利用分支进行开发的流程
+			<!--.element: class="fragment"-->
+
+			- Git 在其它环境中之 *Git in Zsh*
+			<!--.element: class="fragment"-->
+
+			- 变基(*Rebase*)
+			<!--.element: class="fragment"-->
+
+			- 初探 *Gitlab*
+			<!--.element: class="fragment"-->
+
+			<aside class="notes">
+			下次实际工作中利用分支进行开发的流程以及可能遇到的问题
+			</aside>
+			</script>
+			</section>
+
+
+			<section data-transition="slide-in fade-out"> 
+			 <h2>See u next time</h2>
+			</section>
+
+			<section data-markdown data-transition="fade-in slide-out">
+			<script type="text/template">
+			<blockquote>" I'll be back"</blockquote>
+			   ### *--Terminator T-800*
+
+			</script>
+			</section>
+
+
+			<section style="text-align: left;">
+			<h1>THE END</h1>
+			<p>
+			- <a href="http://open.xiyouant.org/gitslide">Get this slide</a> <br>
+			- <a href="https://github.com/soimort/you-get">About you-get</a>
+			</p>
+			</section>
+<!-- 
+			<section data-markdown>
+             <script type="text/template">
+                        <img src="attach/QRcode.png" style="
+                            box-shadow: 2px 2px 23px 1px rgba(0, 0, 0, 0.68);
+                            width: 250px;
+                            height: 250px; " />
+                            </script>
+              </section> -->
+<!-- 第二日 -->
+			<section data-markdown>
+			<script type="text/template">
+			## 第二日 The Matrix: Reload
+			
+			###*Precautions,Process,Rebase*
+
+			注意事项,工作流程,以及变基
+
+			</script>
+			</section>
+
+			<section data-markdown>
+			<script type="text/template">
+			## *What is next ?*
+			- 分支管理的注意事项
+			<!--.element: class="fragment"-->
+
+			- 实际工作中利用分支进行开发的流程
+			<!--.element: class="fragment"-->
+
+			- Git 在其它环境中之 *Git in Zsh*
+			<!--.element: class="fragment"-->
+
+			- 变基(*Rebase*)
+			<!--.element: class="fragment"-->
+
+			- 初探 *Gitlab*
+			<!--.element: class="fragment"-->
+
+			<aside class="notes">
+			下次实际工作中利用分支进行开发的流程以及可能遇到的问题
+			</aside>
+			</script>
+			</section>
+
+					<section data-markdown>
+					<script type="text/template">
+					<img src="attach/elfexu.png" style="width:100px;height:100px; border-radius:50%">
+
+					<blockquote><small>“某下午，大家正各自忙活着，忽然传来一声吼：“都别 pull 代码哈，master 上的代码不知被谁 revert 成两个月前的了！””</small></blockquote>
+					<blockquote><small>“（没错，就是百姓网网站的代码库）。立刻，锁部署系统（后来验证部署系统还是有足够防范不会把老代码直接发布的，但当时那个紧张呀），手工恢
+					复代码库，几个人折腾了快一个小时，才安定下来开始找元凶：是一个实习生小朋友犯迷糊想 pull 却打成了 push --force，指向主 repo 的 master。”</small>
+					</blockquote>
+					*-- ElfeXu* (百姓网架构师)
+
+					<aside class="notes">
+					技术上出故障是必然的。能否体现一个公司是技术公司，重要看这几点：1）故障的恢复是否有技术含量，2）公司对故障的处理方式，如果是通过加更多的流程，或是通过加更多的权限管控，或是通过处罚犯错误的人，或是上升到员工意识形态上，而不是去用更好的技术来解决，那么这个公司不会是个技术公司。					
+					<br>左耳朵耗子
+					</aside>
+					</script>
+					</section>
+
+							<section data-markdown>
+									<script type="text/template">
+							## *fork->edit->pull request->*
+							##*code review->merge*
+
+							保险的做法
+							<aside class="notes">
+							</aside>
+
+
+							</script>
+							</section>
+
+			<section data-markdown>
+							<script type="text/template">
+							<img src="attach/branches.png" style="width:800px;">
+
+							###典型分支流水线
+							*Classic Work Silos*
+							<aside class="notes">
+							只在 master 分支上保留完全稳定的代码——有可能仅仅是已经发布或即将发布的代码。 他们还有一些名为 develop 或者 next 的平行分支，被用来做后续开发或者测试稳定性——这些分支不必保持绝对稳定，但是一旦达到稳定状态，它们就可以被合并入 master 分支了。 这样，在确保这些已完成的特性分支（短期分支，比如之前的 iss53 分支）能够通过所有测试，并且不会引入更多 bug 之后，就可以合并入主干分支中，等待下一次的发布。
+							</aside>
+							</script>
+			</section>
+
+			<section data-markdown>
+							<script type="text/template">
+							<img src="attach/branches-1.png" style="height:500px; width:650px;">
+
+							###拥有多个特性分支的提交历史
+							<aside class="notes">
+							特性分支对任何规模的项目都适用。 特性分支是一种短期分支，它被用来实现单一特性或其相关工作。 
+							也许你从来没有在其他的版本控制系统（VCS）上这么做过，因为在那些版本控制系统中创建和合并分支通常很费劲。 然而，在 Git 
+							中一天之内多次创建、使用、合并、删除分支都很常见。
+							</aside>
+							</script>
+			</section>
+
+
+							<section data-markdown>
+									<script type="text/template">
+							## *Git Rebase* 
+							分支的衍合
+							<aside class="notes">
+							</aside>
+
+
+							</script>
+							</section>
+
+							<section data-markdown>
+							<script type="text/template">
+							<img src="attach/rebasepic.jpg" style="width:800px;">
+
+							####做一个Merge 和 rebase 的分支对比
+							*Which do you prefer?*
+							<aside class="notes">
+							只在 master 分支上保留完全稳定的代码——有可能仅仅是已经发布或即将发布的代码。 他们还有一些名为 develop 或者 next 
+							的平行分支，被用来做后续开发或者测试稳定性——这些分支不必保持绝对稳定，但是一旦达到稳定状态，它们就可以被合并入 master 分支了。 
+							这样，在确保这些已完成的特性分支（短期分支，比如之前的 iss53 分支）能够通过所有测试，并且不会引入更多 bug 
+							之后，就可以合并入主干分支中，等待下一次的发布。
+							</aside>
+							</script>
+							</section>
+
+
+							<section data-markdown>
+							<script type="text/template">
+							<img src="attach/Bmerge.png" style="width:800px;">
+
+							###假设合并之前是这样
+							<aside class="notes">
+							</aside>
+							</script>
+							</section>
+
+
+							
+							<section data-markdown>
+							<script type="text/template">
+							<img src="attach/Amerge.png" style="width:800px;">
+
+							###使用 *Merge* 命令合并后
+							<aside class="notes">
+							</aside>
+							</script>
+							</section>
+							
+
+							<section data-markdown>
+							<script type="text/template">
+							<img src="attach/rebase.png" style="width:800px;">
+
+							###使用 *Rebase* 的话
+							<aside class="notes">
+							如果是 rebase 的方式，就不會有 G 的合并点
+							</aside>
+							</script>
+							</section>
+
+
+
+							<section data-markdown>
+							<script type="text/template">
+							<img src="attach/Bmerge.png" style="width:800px;">
+							<img src="attach/Amerge.png" style="width:800px;">
+							<img src="attach/rebase.png" style="width:800px;">
+
+							###做一个 *compare*
+							<aside class="notes">
+							有 conflict 怎么办? rebase 跟 merge 类似，发现 conflict 会暂停 rebase 动作，需要你手动修复后，然后才可以继续工作。这也是 rebase 比 
+							merge 复杂一点的地方：merge 如果发生 conflict，你只需要解決冲突一次，然后 commit 出去就完成了。而 rebase 的 conflict 
+							可能會发生在上述步骤 4 的每一次重新套用上，所以可能需要解決冲突好几次 (rebase 时所谓的解决冲突，其实是直接修改之前的变更內容，所以上图中变成 
+								D’ 跟 E’ )。
+							</aside>
+							</script>
+							</section>
+
+							
+							<section data-markdown>
+							<script type="text/template">
+							## *A question?* 
+							
+							<aside class="notes">
+							那么问题来了，如果你修改比较多，預期會有较多的 conflict，建议用 merge (不过，如果是多次大范围式的修改，那是不是应该一开始就多开一个 
+							branch 来做呢?)。如果修改范围较小，预期不会有太多的 conflict，则建议可以加上 rebase 参数。
+							<br> 
+
+							</aside>
+
+
+							</script>
+							</section>
+
+
+							<section data-markdown>
+							<script type="text/template">
+							## *For example:* 
+							
+							<aside class="notes">
+							一个有意思的问题例子
+							<br> 
+
+							</aside>
+
+
+							</script>
+							</section>
+
+
+							<section data-markdown>
+							<script type="text/template">
+							*Github* 上存在主分支, 本地需要修改多个功能和 *bug* ,
+							于是在多个分支开发不同的功能, 然后合并提交..
+							合并和提交的顺序不是确定的, 因此不能简单直接用 *merge* 每次一个个叠加.
+							有时我用 *rebase*, 但有发现 *commit* 顺序不是时间顺序, 到线上被 *merge* 以后也不是非常清晰
+							面对这样的场景, 用怎样的方式管理会更合适呢?
+
+							<aside class="notes">
+
+							</aside>
+
+							</script>
+							</section>
+					
+			<section data-markdown>
+			<script type="text/template">
+			## *How to fix it:*
+			- *$ git checkout work* (去自己的工作分支工作)
+			<!--.element: class="fragment"-->
+
+			- *$ git commit -a* (提交工作修改)
+			<!--.element: class="fragment"-->
+
+			- *$ git checkout master* (切换到主分支)
+			<!--.element: class="fragment"-->
+
+			- *$ git pull* (获取远程最新修改，此时不会产生冲突)
+			<!--.element: class="fragment"-->
+
+			<aside class="notes">
+			git支持很多种工作流程，我们采用的一般是这样，远程创建一个主分支，本地每人创建功能分支，日常工作流程如下：
+			</aside>
+			</script>
+			</section>
+
+
+
+
+
+			<section data-markdown>
+			<script type="text/template">
+			## *How to fix it:*
+			- *$ $ git checkout work* (回到工作分支)
+			<!--.element: class="fragment"-->
+
+			- *$ git rebase master* (用*rebase*合并主干的修改，如果有冲突在此时解决)
+			<!--.element: class="fragment"-->
+
+			- *$ git checkout master* (切换到主分支)
+			<!--.element: class="fragment"-->
+
+			- *$ git merge work* (合并工作分支的修改，此时不会产生冲突)
+			<!--.element: class="fragment"-->
+
+			- *$ git push*提交到远程版本库
+			<!--.element: class="fragment"-->
+
+			<aside class="notes">
+			这样做的好处是，远程主干上的历史永远是线性的。每个人在本地分支解决冲突，不会在主干上产生冲突
+			</aside>
+			</script>
+			</section>
+
+
+
+<!-- Demo -->
+            <section data-markdown>
+			<script type="text/template">
+			## *Demo time*
+
+			</script>
+			</section>
+
+
+	
+<!-- About other -->
+            <section data-markdown>
+			<script type="text/template">
+			## *关于其它*
+
+			</script>
+			</section>
+			<!-- Q&A -->
+			<section data-markdown>
+			<script type="text/template">
+			  # *Q&A*
+			  ###Any Questions?
+
+			</script>
+			</section>
+
+
+
+			<section style="text-align: left;">
+			<h1>THE END</h1>
+			<p>
+			- <a href="http://open.xiyouant.org/gitslide">Get this slide</a> <br>
+			- <a href="http://open.xiyouant.org/gitslide/#/59">Get online source</a>
+			</p>
+			</section>
+
+			
+
+
+			<section data-markdown data-transition="convex">
+			<script type="text/template">
+			### Online Reference:
+			- <a href="http://www.oschina.net/translate/a-successful-git-branching-model">介绍一个成功的 Git 分支模型</a>
+			- <a href="http://www.zsh.org/">Zsh</a>
+			- <a href="http://ohmyz.sh/">Oh My Zsh</a>
+			- <a href="http://teahour.fm/2013/03/25/story-of-gitlab.html">Teahour #8 GitLab 的故事</a>
+			- <a href="https://about.gitlab.com/">GitLab</a>
+			- <a href="https://launchpad.net/plank">关于 Plank </a>
+			- <a href="https://vnet.link/soft/vxtrans">Vxtrans</a>
+			</script>
+			</section>
+				
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
